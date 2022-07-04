@@ -60,7 +60,7 @@ def PercentileCalculator(numbers, percentiles=PERCENTILES_LIST):
     index = min(index, count - 1)  # Correction to handle 100th percentile.
     result[percentile_string] = numbers_sorted[index]
 
-  average = total / float(count)
+  average = np.mean(numbers_sorted)
   result['average'] = average
   if count > 1:
     total_of_squares = sum([(i - average)**2 for i in numbers])

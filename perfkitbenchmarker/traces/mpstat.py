@@ -262,7 +262,7 @@ def _GetCPUAverageInterruptions(
     for report in host_stats:
       value = report['sum-interrupts'][cpu_id]['intr']
       measurements.append(value)
-    average = sum(measurements)/len(measurements)
+    average = np.mean(measurements)
     metric_name = 'mpstat_avg_intr'
     meta = metadata.copy()
     meta['mpstat_cpu_id'] = cpu_id-1

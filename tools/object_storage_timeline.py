@@ -159,7 +159,7 @@ class SelectionUpdate:
     qps = len(all_active_latencies) / (end - start)
     latency_min = min(all_active_latencies)
     latency_max = max(all_active_latencies)
-    latency_avg = sum(all_active_latencies) / len(all_active_latencies)
+    latency_avg = np.mean(all_active_latencies)
     latency_stddev = np.std(all_active_latencies)
 
     text_str = ('Duration: %s\nQPS: %s\nlatency min: %s\nlatency max: %s\n'

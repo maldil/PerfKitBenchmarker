@@ -14,6 +14,7 @@
 """Run Horovod distributed Tensorflow Training benchmark."""
 
 import logging
+import numpy as np
 from absl import flags
 from perfkitbenchmarker import configs
 from perfkitbenchmarker import errors
@@ -295,7 +296,7 @@ def _ExtractMaskRCNNThroughput(output):
       total_xput.append(xput)
   if not total_xput:
     raise ValueError('No "Throughput" found in {}'.format(output))
-  return round(sum(total_xput) / len(total_xput), 1), unit
+  return round(np.mean(total_xput), 1), unit
 
 
 def _MakeSamplesFromOutput(vms, stdout, stderr):

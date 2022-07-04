@@ -20,6 +20,8 @@ import logging
 import os
 import time
 
+import numpy as np
+
 from absl import flags
 from google.cloud import monitoring_v3
 from google.cloud.monitoring_v3.types import TimeInterval
@@ -196,7 +198,7 @@ class CloudRedis(managed_memory_store.BaseManagedMemoryStore):
 
     if intervals:
       # Average over all minute intervals captured
-      averaged = sum(intervals) / len(intervals)
+      averaged = np.mean(intervals)
       # averaged is in the unit of cpu seconds per minute.
       # So divide by 60sec in 1 min to get a percentage usage over the minute.
       return averaged / 60

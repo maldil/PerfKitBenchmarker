@@ -30,6 +30,7 @@ import os
 import pipes
 import posixpath
 import subprocess
+import numpy as np
 from typing import Any, Dict, List
 from absl import flags
 from perfkitbenchmarker import benchmark_spec as bm_spec
@@ -333,7 +334,7 @@ def _GetCpuUtilizationSample(samples: List[sample.Sample],
             round(point.value.double_value, 3)
             for point in cluster_time_series.points]
 
-        average_utilization = round(sum(utilization) / len(utilization), 3)
+        average_utilization = round(np.mean(utilization), 3)
         metadata = {
             'cluster_number': cluster_number,
             'workload_index': workload_index,

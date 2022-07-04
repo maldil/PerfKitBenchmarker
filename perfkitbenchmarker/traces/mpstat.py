@@ -51,6 +51,8 @@ import logging
 import os
 from typing import Any, Dict, List, Optional
 
+import numpy as np
+
 from absl import flags
 from perfkitbenchmarker import events
 from perfkitbenchmarker import sample
@@ -204,7 +206,7 @@ def _GetCPUAverageMetrics(
       for report in host_stats:
         value = report['cpu-load'][cpu_id + 1][cpu_metric]
         measurements.append(value)
-      average = sum(measurements) / len(measurements)
+      average = np.mean(measurements)
       metric_name = 'mpstat_avg_' + cpu_metric
       meta = metadata.copy()
       meta['mpstat_cpu_id'] = cpu_id

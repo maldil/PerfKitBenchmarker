@@ -24,6 +24,7 @@ by the "aerospike_storage_type" and "data_disk_type" flags.
 
 
 import re
+import numpy as np
 from absl import flags
 from perfkitbenchmarker import configs
 from perfkitbenchmarker import disk
@@ -146,7 +147,7 @@ def Run(benchmark_spec):
         (FLAGS.aerospike_read_percent / 100.0) * float(read_latency) +
         ((100 - FLAGS.aerospike_read_percent) / 100.0) * float(write_latency))
     tps = list(map(int, re.findall(r'total\(tps=([0-9]+) ', output)))
-    return float(sum(tps)) / len(tps), average_latency
+    return np.mean(tps), average_latency
 
   load_command = ('./%s/benchmarks/target/benchmarks -z 32 -n test -w I '
                   '-o B:1000 -k %s -h %s' %

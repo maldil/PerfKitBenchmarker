@@ -18,6 +18,7 @@ More info: http://cloudsuite.ch/datacaching
 """
 
 import re
+import numpy as np
 from absl import flags
 from perfkitbenchmarker import configs
 from perfkitbenchmarker import sample
@@ -96,7 +97,7 @@ def _ParseOutput(output_str):
   req_rems = numbers[15:-1]
 
   results.append(sample.Sample("Average outstanding requests per requester",
-                               sum(req_rems) / len(req_rems), "reqs"))
+                               np.mean(req_rems), "reqs"))
 
   return results
 
